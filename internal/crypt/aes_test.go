@@ -3,8 +3,9 @@ package crypt
 import (
 	"crypto/aes"
 	"crypto/sha256"
-	"github.com/stretchr/testify/assert"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 )
 
 func TestEncrypt_aes256_cbc(t *testing.T) {
@@ -16,7 +17,7 @@ func TestEncrypt_aes256_cbc(t *testing.T) {
 	assert.NoError(t, err)
 	assert.Equal(t, len(iv), aes.BlockSize)
 
-	ciphertext, err := encrypt_aes256_cbc([]byte("hello world"), iv, key)
+	ciphertext, err := encryptAES256CBC([]byte("hello world"), iv, key)
 	assert.NoError(t, err)
 	assert.Equal(t, "99b7bbf92427f996a4de6a1858dea1d9", string(EncodeHex(ciphertext)))
 }
@@ -31,7 +32,7 @@ func TestEncrypt_aes256_cbc_base64(t *testing.T) {
 	assert.NoError(t, err)
 	assert.Equal(t, len(iv), aes.BlockSize)
 
-	ctext, err := encrypt_aes256_cbc_base64(plaintext, iv, key)
+	ctext, err := encryptAES256CBCBase64(plaintext, iv, key)
 	assert.NoError(t, err)
 	assert.Equal(t, "!q80SNAMSNBcoMEaX3vNBNA==|GSG5M1Zs8mymkZLusq/67g==", string(ctext))
 }
@@ -46,7 +47,7 @@ func TestEncrypt_aes256_cbc_base64Long(t *testing.T) {
 	assert.NoError(t, err)
 	assert.Equal(t, len(iv), aes.BlockSize)
 
-	ctext, err := encrypt_aes256_cbc_base64(plaintext, iv, key)
+	ctext, err := encryptAES256CBCBase64(plaintext, iv, key)
 	assert.NoError(t, err)
 	assert.Equal(t, "!q80SNAMSNBcoMEaX3vNBNA==|/CoDSFDuGHcwYomJsQbwep3tEkkYTeiKYFqxs"+
 		"MWNlcC7LlWqIcfD03OAvlBZZUz/sr0lxSsRT1Ua/4+Lh8IyAXYT0vf2J3pVQxsuhXBSZYg=", string(ctext))
@@ -61,7 +62,7 @@ func TestEncrypt_aes256_cbc_base64Short(t *testing.T) {
 	assert.NoError(t, err)
 	assert.Equal(t, len(iv), aes.BlockSize)
 
-	ctext, err := encrypt_aes256_cbc_base64(plaintext, iv, key)
+	ctext, err := encryptAES256CBCBase64(plaintext, iv, key)
 	assert.NoError(t, err)
 	assert.Equal(t, "!q80SNAMSNBcoMEaX3vNBNA==|VPjgcgT1ZlQyX9XyI0jQ7j+8wJLDM7aR"+
 		"KGtaHpqknGepjFk/bMUe54bYskzmhpkiMzYTqhqkBjMO9VZ55Ky4Yw==", string(ctext))
